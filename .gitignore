@@ -1,0 +1,4 @@
+.ideal/
+__pyc*
+venv/
+.env
