@@ -1,4 +1,4 @@
-.ideal/
+.idea/
 __pyc*
 venv/
 .env
