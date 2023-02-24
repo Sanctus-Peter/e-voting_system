@@ -34,7 +34,21 @@ class Party(Base):
 
 class Vote(Base):
     __tablename__ = "votes"
+    # Vote is identified by two fields voterId and electionId
+    voterId = Column(Integer, primary_key=True, nullable=False)
+    electionId = Column(Integer, primary_key=True, nullable=False)
+    voted_at = Column(TIMESTAMP(timezone=True), nullable=False,
+                        server_default=text("Now()"))
 
 
 class Election(Base):
     __tablename__ = "election"
+    id = Column(Integer, primary_key=True, nullable=False)
+    title = Column(String(255), nullable=False)
+    # If specified only users from that state can participate
+    state = Column(String(255))
+    lga = Column(String(255))
+    start_date = Column(TIMESTAMP(timezone=True), nullable=False)
+    end_date = Column(TIMESTAMP(timezone=True), nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False,
+                        server_default=text("Now()"))

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import official, auth, user, candidate, vote, view
+from .routers import official, auth, user, candidate, vote, view, election
 
 app = FastAPI()
 
@@ -20,6 +20,7 @@ app.include_router(auth.router)
 app.include_router(user.router)
 app.include_router(candidate.router)
 app.include_router(vote.router)
+app.include_router(election.router)
 
 
 app.get("/")
