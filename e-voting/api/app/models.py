@@ -14,6 +14,7 @@ class User(Base):
     address = Column(String, nullable=False)
     ward = Column(String, nullable=False)
     state = Column(String, nullable=False)
+    lga = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
     reg_date = Column(TIMESTAMP(timezone=True),
