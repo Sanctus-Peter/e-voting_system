@@ -2,6 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routers import official, auth, user, candidate, vote, view, election
 
+# from . import models
+# from .database import engine
+# models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
 
 origins = ["*"]
@@ -25,4 +29,4 @@ app.include_router(election.router)
 
 app.get("/")
 async def root():
-    return{"message": "Welcome to our e-voting system"}
+    return {"message": "Welcome to our e-voting system"}

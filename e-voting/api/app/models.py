@@ -16,20 +16,24 @@ class User(Base):
     state = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    reg_date = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("NOW()"))
+    reg_date = Column(TIMESTAMP(timezone=True),
+                      nullable=False, server_default=text("NOW()"))
     role = Column(String, nullable=False, server_default="user")
 
 
 class Officials(Base):
     __tablename__ = "officials"
+    id = Column(Integer, primary_key=True, nullable=False)
 
 
-class Candidates(User):
-    __tablename__ = "candidates"
+# class Candidates(User):
+#     __tablename__ = "candidates"
+#     id = Column(Integer, primary_key=True, nullable=False)
 
 
 class Party(Base):
     __tablename__ = "party"
+    id = Column(Integer, primary_key=True, nullable=False)
 
 
 class Vote(Base):
@@ -38,11 +42,11 @@ class Vote(Base):
     voterId = Column(Integer, primary_key=True, nullable=False)
     electionId = Column(Integer, primary_key=True, nullable=False)
     voted_at = Column(TIMESTAMP(timezone=True), nullable=False,
-                        server_default=text("Now()"))
+                      server_default=text("Now()"))
 
 
 class Election(Base):
-    __tablename__ = "election"
+    __tablename__ = "elections"
     id = Column(Integer, primary_key=True, nullable=False)
     title = Column(String(255), nullable=False)
     # If specified only users from that state can participate
