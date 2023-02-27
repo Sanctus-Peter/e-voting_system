@@ -2,9 +2,9 @@
 """This file defines the endpoints related to election"""
 
 from fastapi import APIRouter, status, Depends, HTTPException
-from app.database import get_db
+from ..database import get_db
 from sqlalchemy.orm import Session
-from app import models, schemas, utils
+from .. import models, schemas, utils
 from datetime import datetime
 from typing import List
 from sqlalchemy import or_, and_, func
