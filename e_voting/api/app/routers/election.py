@@ -4,7 +4,7 @@
 from fastapi import APIRouter, status, Depends, HTTPException
 from ..database import get_db
 from sqlalchemy.orm import Session
-from .. import models, schemas, utils
+from .. import models, schemas, utils, oauth
 from datetime import datetime
 from typing import List
 from sqlalchemy import or_, and_, func
@@ -20,7 +20,8 @@ def get_all_elections(db: Session = Depends(get_db)):
 
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=schemas.Election)
-def create_election(election: schemas.ElectionCreate, db: Session = Depends(get_db)):
+def create_election(election: schemas.ElectionCreate,
+                    db: Session = Depends(get_db), user: models.User = Depends(oauth.get_admin_user)):
     """Creates an election
     - todo : set up authorization
     """
@@ -57,8 +58,10 @@ def get_one_election(electionId: str, db: Session = Depends(get_db)):
 
 @router.patch("/{electionId}", response_model=schemas.Election)
 def update_election(electionId: str, body: schemas.ElectionUpdate,
-                    db: Session = Depends(get_db)):
-    """Updates an election base on Id"""
+                    db: Session = Depends(get_db), user: models.User = Depends(oauth.get_admin_user)):
+    """Updates an election base on Id
+        Restricted to admin
+    """
     qry = db.query(models.Election).where(models.Election.id == electionId)
     old = qry.first()
     if not old:
@@ -74,21 +77,22 @@ def update_election(electionId: str, body: schemas.ElectionUpdate,
 
 
 @router.delete("/{electionId}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_election(electionId: str, db: Session = Depends(get_db)):
-    """Updates an election base on Id"""
+def delete_election(electionId: str, db: Session = Depends(get_db),
+                    user: models.User = Depends(oauth.get_admin_user)):
+    """Deletes an election base on Id
+        Restricted to admin
+    """
     db.query(models.Election).where(models.Election.id == electionId).delete()
     return None
 
 
 @router.get("/active/mine")
-def get_active_elections(db: Session = Depends(get_db)):
+def get_active_elections(db: Session = Depends(get_db), user: models.User = Depends(oauth.get_current_user)):
     """Find the active elections available to the logged in user
         All national elections (state = null and lga = null)
         All user's state elections (state = user.state and lga = null)
         All user's lga elections (lga = user.lga) 
     """
-    user = models.User(state="Kano", lga="Zaria")
-
     E = models.Election
     qry = db.query(E).where(
         and_(

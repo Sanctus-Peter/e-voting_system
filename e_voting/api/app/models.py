@@ -12,6 +12,7 @@ class User(Base):
     address = Column(String, nullable=False)
     ward = Column(String, nullable=False)
     state = Column(String, nullable=False)
+    lga = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
     mobile_no = Column(Integer, nullable=False)
@@ -71,3 +72,22 @@ class Election(Base):
     start_date = Column(TIMESTAMP(timezone=True), nullable=False)
     end_date = Column(TIMESTAMP(timezone=True), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("Now()"))
+    
+    def user_eligible(self, user: User):
+        """Check if a user is eligible to cast a vote for this election
+
+        Args:
+            user (User): The user ti validate
+
+        Returns:
+            boolean: True if user is eligible false otherwise
+        """
+        if not user.accredited:
+            return False
+        if not self.lga and not self.state:
+            return True
+        if self.state and not self.lga:
+            return self.state.lower() == user.state.lower()
+        if self.lga:
+            return self.lga.lower() == user.lga.lower()
+        
