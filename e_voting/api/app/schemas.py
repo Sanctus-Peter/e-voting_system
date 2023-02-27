@@ -1,6 +1,7 @@
-from datetime import datetime
-from pydantic import BaseModel, EmailStr
+from datetime import date, datetime
+from pydantic import BaseModel, EmailStr, validator
 from typing import Optional
+from fastapi import HTTPException, status
 
 
 class CreateVoter(BaseModel):
@@ -11,12 +12,20 @@ class CreateVoter(BaseModel):
     ward: str
     state: str
     address: str
-    dob: datetime.date
+    dob: date
     gender: str
     mobile_no: int
 
+    @validator("dob")
+    def validate_dob(cls, v):
+        if v > date(date.today().year - 18, date.today().month, date.today().day):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="You must be at least 18 years old to be able to vote"
+            )
+        return v
 
-class ElectionCreate (BaseModel):
+
+class ElectionCreate(BaseModel):
     title: str
     state: Optional[str]
     lga: Optional[str]
@@ -24,7 +33,7 @@ class ElectionCreate (BaseModel):
     end_date: datetime
 
 
-class ElectionUpdate (BaseModel):
+class ElectionUpdate(BaseModel):
     title: Optional[str]
     state: Optional[str]
     lga: Optional[str]

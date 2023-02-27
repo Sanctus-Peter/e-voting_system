@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, nullable=False)
-    nin = Column(Integer, nullable=False, unique=True)
+    nin = Column(String, nullable=False, unique=True)
     vin = Column(Integer, nullable=True)
     name = Column(String, nullable=False)
     address = Column(String, nullable=False)
@@ -14,6 +14,7 @@ class User(Base):
     state = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
+    mobile_no = Column(Integer, nullable=False)
     dob = Column(String, nullable=False)
     gender = Column(String, nullable=False)
     reg_date = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("NOW()"))
