@@ -18,9 +18,10 @@ class User(Base):
     dob = Column(String, nullable=False)
     gender = Column(String, nullable=False)
     reg_date = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("NOW()"))
-    is_candidate = Column(Boolean, nullable=False, server_default="False")
+    role = Column(String, nullable=False, server_default="user")
     accredited = Column(Boolean, nullable=False, server_default="False")
     voted = Column(Boolean, nullable=False, server_default="False")
+    admin_id = Column(String)
 
 
 class Officials(Base):

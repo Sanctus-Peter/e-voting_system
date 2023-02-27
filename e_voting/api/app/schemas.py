@@ -25,6 +25,15 @@ class CreateVoter(BaseModel):
         return v
 
 
+class Official(BaseModel):
+    admin_id: str
+    email: EmailStr
+    name: str
+
+    class Config:
+        orm_mode = True
+
+
 class ElectionCreate(BaseModel):
     title: str
     state: Optional[str]
