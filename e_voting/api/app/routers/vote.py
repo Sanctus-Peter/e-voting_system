@@ -1,3 +1,4 @@
+from fastapi import APIRouter
 from fastapi import APIRouter, status, Depends, HTTPException
 from app.database import get_db
 from sqlalchemy.orm import Session
@@ -26,3 +27,6 @@ def vote(body: schemas.VoteCreate, db: Session = Depends(get_db)):
     # cast vote
 
     return "Voted Successfully"
+
+
+router = APIRouter(tags=["Votes"])
