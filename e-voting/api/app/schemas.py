@@ -37,3 +37,7 @@ class Election(ElectionCreate):
 
     class Config:
         orm_mode = True
+
+
+class TokData(BaseModel):
+    id: Optional[str] = None
