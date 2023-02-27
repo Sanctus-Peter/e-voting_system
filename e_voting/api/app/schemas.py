@@ -20,7 +20,7 @@ class CreateVoter(BaseModel):
     def validate_dob(cls, v):
         if v > date(date.today().year - 18, date.today().month, date.today().day):
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, detail="You must be at least 18 years old to be able to vote"
+                status_code=status.HTTP_403_FORBIDDEN, detail="You must be at least 18 years old to be able to vote"
             )
         return v
 
