@@ -7,7 +7,7 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, nullable=False)
     nin = Column(String, nullable=False, unique=True)
-    vin = Column(Integer, nullable=True)
+    vin = Column(String, nullable=True)
     name = Column(String, nullable=False)
     address = Column(String, nullable=False)
     ward = Column(String, nullable=False)
