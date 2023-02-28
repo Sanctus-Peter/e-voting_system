@@ -18,7 +18,8 @@ class User(Base):
     mobile_no = Column(String, nullable=False)
     dob = Column(String, nullable=False)
     gender = Column(String, nullable=False)
-    reg_date = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("NOW()"))
+    reg_date = Column(TIMESTAMP(timezone=True),
+                      nullable=False, server_default=text("NOW()"))
     role = Column(String, nullable=False, server_default="user")
     accredited = Column(Boolean, nullable=False, server_default="False")
     voted = Column(Boolean, nullable=False, server_default="False")
@@ -31,18 +32,21 @@ class Officials(Base):
     name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    reg_date = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("NOW()"))
+    reg_date = Column(TIMESTAMP(timezone=True),
+                      nullable=False, server_default=text("NOW()"))
 
 
 class Candidates(Base):
     __tablename__ = "candidates"
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False)
-    party_name = Column(String, ForeignKey("party.name", ondelete="CASCADE"), nullable=False)
+    party_name = Column(String, ForeignKey(
+        "party.name", ondelete="CASCADE"), nullable=False)
     position = Column(String, nullable=False)
     state = Column(String, nullable=False)
     ideology = Column(String, nullable=False)
-    reg_date = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("NOW()"))
+    reg_date = Column(TIMESTAMP(timezone=True),
+                      nullable=False, server_default=text("NOW()"))
     total_votes = Column(Integer, nullable=False, server_default=text("0"))
     party = relationship("Party")
 
@@ -59,7 +63,8 @@ class Vote(Base):
     # Vote is identified by two fields voterId and electionId
     voterId = Column(Integer, primary_key=True, nullable=False)
     electionId = Column(Integer, primary_key=True, nullable=False)
-    voted_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("Now()"))
+    voted_at = Column(TIMESTAMP(timezone=True),
+                      nullable=False, server_default=text("Now()"))
 
 
 class Election(Base):
@@ -71,4 +76,24 @@ class Election(Base):
     lga = Column(String(255))
     start_date = Column(TIMESTAMP(timezone=True), nullable=False)
     end_date = Column(TIMESTAMP(timezone=True), nullable=False)
-    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("Now()"))
+    created_at = Column(TIMESTAMP(timezone=True),
+                        nullable=False, server_default=text("Now()"))
+    created_by = Column(Integer)
+
+    def user_eligible(self, user: User):
+        """Check if a user is eligible to cast a vote for this election
+
+        Args:
+            user (User): The user ti validate
+
+        Returns:
+            boolean: True if user is eligible false otherwise
+        """
+        if not user.accredited:
+            return False
+        if not self.lga and not self.state:
+            return True
+        if self.state and not self.lga:
+            return self.state.lower() == user.state.lower()
+        if self.lga:
+            return self.lga.lower() == user.lga.lower()

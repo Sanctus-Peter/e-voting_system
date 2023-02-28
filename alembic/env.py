@@ -5,14 +5,14 @@ from sqlalchemy import pool
 
 from alembic import context
 from e_voting.api.app.models import Base
-from e_voting.api.app.config import settings
+from e_voting.api.app.database import SQLALCHEMY_DATABASE_URL
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 config.set_main_option(
     "sqlalchemy.url",
-    f"postgresql+psycopg2://{settings.db_username}:{settings.db_password}@{settings.db_hostname}:{settings.db_port}/{settings.db_name}"
+    SQLALCHEMY_DATABASE_URL
 )
 
 # Interpret the config file for Python logging.

@@ -59,3 +59,15 @@ class Election(ElectionCreate):
 
 class TokData(BaseModel):
     id: Optional[str] = None
+
+
+class VoteCreate(BaseModel):
+    voterId: int
+    electionId: int
+
+
+class Vote(VoteCreate):
+    voted_at: datetime
+
+    class Config:
+        orm_mode = True
