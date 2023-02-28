@@ -27,6 +27,15 @@ def vote(body: schemas.VoteCreate, db: Session = Depends(get_db),
             detail="Election is Closed!"
         )
 
+    # confirm candidate is participating in the election
+    candidate_found = len(
+        tuple(filter(lambda c: c.id == body.candidateId, election.candidates)))
+    if not candidate_found:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Candidate is not registered for this election"
+        )
+
     # confirm voter is eligible to vote in this election
     if not election.user_eligible(user=user):
         raise HTTPException(
