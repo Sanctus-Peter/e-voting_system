@@ -77,3 +77,13 @@ class Vote(VoteCreate):
 
     class Config:
         orm_mode = True
+
+
+class CandidateCreate(BaseModel):
+    pass
+
+
+class Candidate(CandidateCreate):
+
+    class Config:
+        orm_mode = True

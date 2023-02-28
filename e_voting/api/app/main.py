@@ -22,7 +22,7 @@ app.include_router(view.router)
 app.include_router(official.router)
 app.include_router(auth.auth_router)
 app.include_router(user.router)
-app.include_router(candidate.router)
+app.include_router(candidate.candidate_router)
 app.include_router(vote.votes_router)
 app.include_router(election.router)
 
