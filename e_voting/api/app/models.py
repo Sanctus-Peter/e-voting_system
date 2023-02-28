@@ -1,5 +1,5 @@
 from .database import Base
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, TIMESTAMP, text
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, TIMESTAMP, text, CHAR
 from sqlalchemy.orm import relationship
 
 
@@ -15,7 +15,7 @@ class User(Base):
     lga = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    mobile_no = Column(Integer, nullable=False)
+    mobile_no = Column(CHAR(11), nullable=False)
     dob = Column(String, nullable=False)
     gender = Column(String, nullable=False)
     reg_date = Column(TIMESTAMP(timezone=True),

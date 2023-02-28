@@ -15,9 +15,13 @@ def filter_nones(body):
 
     return result
 
+
 def hashed(password: str):
     return pwd_context.hash(password)
 
 
 def verify(attempted_password, usr_password):
     return pwd_context.verify(attempted_password, usr_password)
+
+
+# print(hashed("12345pass"))
