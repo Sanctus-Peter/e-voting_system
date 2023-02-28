@@ -62,8 +62,8 @@ class TokData(BaseModel):
 
 
 class VoteCreate(BaseModel):
-    voterId: str
-    electionId: str
+    voterId: int
+    electionId: int
 
 
 class Vote(VoteCreate):

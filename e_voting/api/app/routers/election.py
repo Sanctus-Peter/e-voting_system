@@ -23,10 +23,9 @@ def get_all_elections(db: Session = Depends(get_db)):
 def create_election(election: schemas.ElectionCreate,
                     db: Session = Depends(get_db), user: models.User = Depends(oauth.get_admin_user)):
     """Creates an election
-    - todo : set up authorization
     """
     data = election.dict()
-    new_election = models.Election(**data)
+    new_election = models.Election(**data, created_by=user.id)
     db.add(new_election)
     db.commit()
     db.refresh(new_election)
