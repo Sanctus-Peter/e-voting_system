@@ -67,11 +67,12 @@ class Token(BaseModel):
 
 
 class VoteCreate(BaseModel):
-    voterId: int
+    candidateId: int
     electionId: int
 
 
 class Vote(VoteCreate):
+    voterId: int
     voted_at: datetime
 
     class Config:

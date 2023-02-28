@@ -45,7 +45,8 @@ def vote(body: schemas.VoteCreate, db: Session = Depends(get_db),
         )
 
     # cast vote
-    vote = models.Vote(voterId=user.id, electionId=election.id)
+    vote = models.Vote(voterId=user.id, electionId=election.id,
+                       candidateId=body.candidateId)
     db.add(vote)
     db.commit()
     db.refresh(vote)
