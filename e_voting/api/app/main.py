@@ -20,7 +20,7 @@ app.add_middleware(
 
 app.include_router(view.router)
 app.include_router(official.router)
-app.include_router(auth.router)
+app.include_router(auth.auth_router)
 app.include_router(user.router)
 app.include_router(candidate.router)
 app.include_router(vote.votes_router)
@@ -28,5 +28,7 @@ app.include_router(election.router)
 
 
 app.get("/")
+
+
 async def root():
     return {"message": "Welcome to our e_voting system"}

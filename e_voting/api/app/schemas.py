@@ -61,6 +61,11 @@ class TokData(BaseModel):
     id: Optional[str] = None
 
 
+class Token(BaseModel):
+    token: str
+    type: str
+
+
 class VoteCreate(BaseModel):
     voterId: int
     electionId: int
