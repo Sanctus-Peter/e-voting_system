@@ -51,6 +51,7 @@ class Candidates(Base):
     election_id = Column(Integer, ForeignKey(
         "election.id", ondelete="CASCADE"
     ), nullable=False)
+    created_by = Column(Integer)
 
     party = relationship("Party")
 
