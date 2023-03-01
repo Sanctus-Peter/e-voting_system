@@ -37,7 +37,6 @@ def verify_tok(token: str, credentials_exception):
 
 def get_current_user(token: str = Depends(oauth2_scheme),
                      db: Session = Depends(database.get_db)):
-    print("get_current_user")
     credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                           detail=f"Could not validate credentials",
                                           headers={"WWW-Authenticate": "Bearer"}
@@ -45,7 +44,6 @@ def get_current_user(token: str = Depends(oauth2_scheme),
 
     token = verify_tok(token, credentials_exception)
     user = db.query(models.User).filter(models.User.id == token.id).first()
-    print(user)
     return user
 
 def get_admin_user(user:models.User= Depends(get_current_user)):

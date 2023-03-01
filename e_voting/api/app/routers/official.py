@@ -1,6 +1,5 @@
 from fastapi import APIRouter, status, HTTPException, Depends
 from sqlalchemy.orm import Session
-from fastapi.security import OAuth2PasswordBearer
 import uuid
 
 from .. import schemas, database, models, utils, oauth
@@ -25,18 +24,3 @@ async def create_official(
     db.commit()
     return found_user.first()
     pass
-
-@router.post("/login")
-async def login_official(
-        request: OAuth2PasswordBearer = Depends(), db: Session = Depends(database.get_db)
-):
-    user = db.query(models.User).filter(models.User.admin_id == request.username).first()
-    if user.role != "admin":
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized to perform this request")
-    if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid Login credentials")
-    if not utils.verify(request.password, user.password):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid Login Credentials")
-
-    access_token = oauth.create_access_token(data={"user_id": user.id})
-    return {"access_token": access_token, "token_type": "bearer"}

@@ -9,12 +9,12 @@ class CreateVoter(BaseModel):
     email: EmailStr
     password: str
     nin: str
+    ward: str
     state: str
-    lga: str
     address: str
     dob: date
     gender: str
-    mobile_no: str
+    mobile_no: int
 
     @validator("dob")
     def validate_dob(cls, v):
