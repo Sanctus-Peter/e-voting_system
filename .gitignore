@@ -2,4 +2,3 @@
 __pyc*
 venv/
 .env
-alembic/versions/*
