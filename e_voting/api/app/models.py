@@ -7,18 +7,15 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, nullable=False)
     nin = Column(String, nullable=False, unique=True)
-    vin = Column(Integer, nullable=True)
+    vin = Column(String, nullable=True)
     name = Column(String, nullable=False)
     address = Column(String, nullable=False)
     ward = Column(String, nullable=False)
     state = Column(String, nullable=False)
+    lga = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
-<<<<<<< HEAD
     mobile_no = Column(CHAR(11), nullable=False)
-=======
-    mobile_no = Column(Integer, nullable=False)
->>>>>>> parent of 1385510 (added login endpoint)
     dob = Column(String, nullable=False)
     gender = Column(String, nullable=False)
     reg_date = Column(TIMESTAMP(timezone=True),
@@ -27,16 +24,6 @@ class User(Base):
     accredited = Column(Boolean, nullable=False, server_default="False")
     voted = Column(Boolean, nullable=False, server_default="False")
     admin_id = Column(String)
-
-
-class Officials(Base):
-    __tablename__ = "officials"
-    id = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    password = Column(String, nullable=False)
-    reg_date = Column(TIMESTAMP(timezone=True),
-                      nullable=False, server_default=text("NOW()"))
 
 
 class Candidates(Base):

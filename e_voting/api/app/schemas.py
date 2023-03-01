@@ -9,12 +9,12 @@ class CreateVoter(BaseModel):
     email: EmailStr
     password: str
     nin: str
-    ward: str
     state: str
+    lga: str
     address: str
     dob: date
     gender: str
-    mobile_no: int
+    mobile_no: str
 
     @validator("dob")
     def validate_dob(cls, v):
@@ -23,6 +23,14 @@ class CreateVoter(BaseModel):
                 status_code=status.HTTP_403_FORBIDDEN, detail="You must be at least 18 years old to be able to vote"
             )
         return v
+
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: EmailStr
+    vin: str
+    accredited: str = "Awaiting Accreditation"
 
 
 class Official(BaseModel):
@@ -62,9 +70,11 @@ class TokData(BaseModel):
     id: Optional[str] = None
 
 
-class Token(BaseModel):
-    token: str
-    type: str
+class UserLogin(BaseModel):
+    id: int
+    name: str
+    access_token: str
+    token_type: str = "bearer"
 
 
 class VoteCreate(BaseModel):

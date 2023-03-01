@@ -46,10 +46,11 @@ def get_current_user(token: str = Depends(oauth2_scheme),
     user = db.query(models.User).filter(models.User.id == token.id).first()
     return user
 
-def get_admin_user(user:models.User= Depends(get_current_user)):
+
+def get_admin_user(user: models.User = Depends(get_current_user)):
     if user.role != 'admin':
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="You are not authorized to excute this action"
+            detail="You are not authorized to execute this action"
         )
     return user

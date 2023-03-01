@@ -12,7 +12,8 @@ class Settings(BaseSettings):
     access_tok_expire_minutes: int
 
     class Config:
-        env_file = "C:\\Users\\MAHADI\\Documents\\Python Projects\\e-voting_system\\e_voting\\api\\.env"
+        # env_file = "C:\\Users\\MAHADI\\Documents\\Python Projects\\e-voting_system\\e_voting\\api\\.env"
+        env_file = ".env"
 
 
 settings = Settings()
