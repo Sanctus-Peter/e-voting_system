@@ -1,5 +1,5 @@
 from .database import Base
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, TIMESTAMP, text
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, TIMESTAMP, text, CHAR
 from sqlalchemy.orm import relationship
 
 
@@ -15,7 +15,7 @@ class User(Base):
     lga = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    mobile_no = Column(String, nullable=False)
+    mobile_no = Column(CHAR(11), nullable=False)
     dob = Column(String, nullable=False)
     gender = Column(String, nullable=False)
     reg_date = Column(TIMESTAMP(timezone=True),
@@ -48,7 +48,15 @@ class Candidates(Base):
     reg_date = Column(TIMESTAMP(timezone=True),
                       nullable=False, server_default=text("NOW()"))
     total_votes = Column(Integer, nullable=False, server_default=text("0"))
+    election_id = Column(Integer, ForeignKey(
+        "election.id", ondelete="CASCADE"
+    ), nullable=False)
+    created_by = Column(Integer)
+
     party = relationship("Party")
+
+    # Total Votes earned by this candidate
+    votes = relationship("Vote")
 
 
 class Party(Base):
@@ -56,13 +64,17 @@ class Party(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False, unique=True)
     party_logo_url = Column(String, nullable=False)
+    fullname = Column(String)
 
 
 class Vote(Base):
     __tablename__ = "votes"
     # Vote is identified by two fields voterId and electionId
     voterId = Column(Integer, primary_key=True, nullable=False)
-    electionId = Column(Integer, primary_key=True, nullable=False)
+    electionId = Column(Integer, ForeignKey(
+        "election.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+    candidateId = Column(Integer, ForeignKey(
+        "candidates.id", ondelete="CASCADE"), nullable=False)
     voted_at = Column(TIMESTAMP(timezone=True),
                       nullable=False, server_default=text("Now()"))
 
@@ -73,12 +85,19 @@ class Election(Base):
     title = Column(String(255), nullable=False)
     # If specified only users from that state can participate
     state = Column(String(255))
+    # if specified only users from the lga can participate
     lga = Column(String(255))
     start_date = Column(TIMESTAMP(timezone=True), nullable=False)
     end_date = Column(TIMESTAMP(timezone=True), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True),
                         nullable=False, server_default=text("Now()"))
     created_by = Column(Integer)
+
+    # List of candidates in this election
+    candidates = relationship("Candidates")
+
+    # total votes casted in this election
+    votes = relationship("Vote")
 
     def user_eligible(self, user: User):
         """Check if a user is eligible to cast a vote for this election

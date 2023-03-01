@@ -85,6 +85,15 @@ def delete_election(electionId: str, db: Session = Depends(get_db),
     return None
 
 
+@router.get("/{electionId}/statistics")
+def get_election_statistics(electionId: int, db: Session = Depends(get_db)):
+    """Return the statistics of an election
+    Votes distribution, percentages etc
+    """
+
+    return "Stats"
+
+
 @router.get("/active/mine")
 def get_active_elections(db: Session = Depends(get_db), user: models.User = Depends(oauth.get_current_user)):
     """Find the active elections available to the logged in user

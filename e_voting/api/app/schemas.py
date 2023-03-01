@@ -51,6 +51,7 @@ class ElectionUpdate(BaseModel):
 
 
 class Election(ElectionCreate):
+    id: int
     created_at: datetime
 
     class Config:
@@ -61,13 +62,46 @@ class TokData(BaseModel):
     id: Optional[str] = None
 
 
+class Token(BaseModel):
+    token: str
+    type: str
+
+
 class VoteCreate(BaseModel):
-    voterId: int
+    candidateId: int
     electionId: int
 
 
 class Vote(VoteCreate):
+    id: int
+    voterId: int
     voted_at: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class CandidateCreate(BaseModel):
+    name: str
+    party_name: str
+    position: str
+    state: str
+    election_id: int
+    ideology: str = "Some random ideologies"
+
+
+class CandidateUpdate(BaseModel):
+    name: Optional[str]
+    party_name: Optional[str]
+    position: Optional[str]
+    state: Optional[str]
+    election_id: Optional[int]
+    ideology: Optional[str]
+
+
+class Candidate(CandidateCreate):
+    id: int
+    reg_date: datetime
 
     class Config:
         orm_mode = True
