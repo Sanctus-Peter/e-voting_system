@@ -12,6 +12,7 @@ votes_router = APIRouter(tags=["Votes"], prefix="/votes")
 @votes_router.post("", status_code=status.HTTP_201_CREATED, response_model=schemas.Vote)
 def vote(body: schemas.VoteCreate, db: Session = Depends(get_db),
          user: models.User = Depends(oauth.get_current_user)):
+    """Cast A Vote"""
     election: models.Election = db.query(models.Election).where(
         models.Election.id == body.electionId).first()
     if not election:
