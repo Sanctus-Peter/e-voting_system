@@ -4,6 +4,7 @@ from ..database import get_db
 from sqlalchemy.orm import Session
 from .. import models, schemas, utils, oauth
 from datetime import datetime
+from typing import List
 
 
 votes_router = APIRouter(tags=["Votes"], prefix="/votes")
@@ -62,3 +63,11 @@ def vote(body: schemas.VoteCreate, db: Session = Depends(get_db),
     db.refresh(vote)
 
     return vote
+
+
+@votes_router.get("/{electionId}", response_model=List[schemas.Vote])
+def get_all_votes_for_election(electionId: int, db: Session = Depends(get_db)):
+    """Retrieve All Votes for an Election"""
+    votes = db.query(models.Vote).where(
+        models.Vote.electionId == electionId).all()
+    return votes
