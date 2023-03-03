@@ -25,6 +25,14 @@ class CreateVoter(BaseModel):
         return v
 
 
+class User(BaseModel):
+    id: int
+    name: str
+    email: EmailStr
+    vin: str
+    accredited: str = "Awaiting Accreditation"
+
+
 class Official(BaseModel):
     admin_id: str
     email: EmailStr
@@ -62,9 +70,11 @@ class TokData(BaseModel):
     id: Optional[str] = None
 
 
-class Token(BaseModel):
-    token: str
-    type: str
+class UserLogin(BaseModel):
+    id: int
+    name: str
+    access_token: str
+    token_type: str = "bearer"
 
 
 class VoteCreate(BaseModel):

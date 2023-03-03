@@ -9,7 +9,7 @@ from datetime import datetime
 from typing import List
 from sqlalchemy import or_, and_, func
 
-router = APIRouter(tags=["Candidates"], prefix="/elections")
+router = APIRouter(tags=["Elections"], prefix="/elections")
 
 
 @router.get("", response_model=List[schemas.Election])

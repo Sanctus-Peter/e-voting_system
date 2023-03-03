@@ -26,16 +26,6 @@ class User(Base):
     admin_id = Column(String)
 
 
-class Officials(Base):
-    __tablename__ = "officials"
-    id = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    password = Column(String, nullable=False)
-    reg_date = Column(TIMESTAMP(timezone=True),
-                      nullable=False, server_default=text("NOW()"))
-
-
 class Candidates(Base):
     __tablename__ = "candidates"
     id = Column(Integer, primary_key=True, nullable=False)

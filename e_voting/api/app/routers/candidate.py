@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status, HTTPException
-from app.database import get_db
+from ..database import get_db
 from sqlalchemy.orm import Session
-from app import models, schemas, oauth, utils
+from .. import models, schemas, oauth, utils
 from typing import List
 
 candidate_router = APIRouter(tags=["Candidates"], prefix="/candidates")
