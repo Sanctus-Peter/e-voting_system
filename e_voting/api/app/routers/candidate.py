@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
+
 from ..database import get_db
 from sqlalchemy.orm import Session
 from .. import models, schemas, oauth, utils
@@ -40,8 +42,10 @@ async def get_candidate(candidateId: int, db: Session = Depends(get_db)):
 
 
 @candidate_router.patch("/{candidateId}")
-async def update_candidate(candidateId: int, body: schemas.CandidateUpdate,
-                           db: Session = Depends(get_db), user: models.User = Depends(oauth.get_admin_user)):
+async def update_candidate(
+        candidateId: int, body: schemas.CandidateUpdate,
+        db: Session = Depends(get_db), user: models.User = Depends(oauth.get_admin_user)
+):
     """Update candidate Details"""
     data = utils.filter_nones(body)
     candidate_qry = db.query(models.Candidates).where(
@@ -60,10 +64,14 @@ async def update_candidate(candidateId: int, body: schemas.CandidateUpdate,
 
 
 @candidate_router.delete("/{candidateId}", status_code=status.HTTP_204_NO_CONTENT)
-async def update_candidate(candidateId: int, db: Session = Depends(get_db)):
+async def delete_candidate(
+        candidateId: int, db: Session = Depends(get_db),
+        user: int = Depends(oauth.get_admin_user)
+):
     """Deletes a Candidate"""
     db.query(models.Candidates).where(
         models.Candidates.id == candidateId).delete()
+    db.commit()
     return None
 
 

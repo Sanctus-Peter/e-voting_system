@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import official, auth, user, candidate, vote, view, election
+from .routers import official, auth, user, candidate, vote, view, election, party
 
 # from . import models
 # from .database import engine
 # models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(debug=True)
 
 origins = ["*"]
 
@@ -22,6 +22,7 @@ app.include_router(view.router)
 app.include_router(official.router)
 app.include_router(auth.router)
 app.include_router(user.router)
+app.include_router(party.router)
 app.include_router(candidate.candidate_router)
 app.include_router(vote.votes_router)
 app.include_router(election.router)

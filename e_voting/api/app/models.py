@@ -10,7 +10,7 @@ class User(Base):
     vin = Column(String, nullable=True)
     name = Column(String, nullable=False)
     address = Column(String, nullable=False)
-    ward = Column(String, nullable=False)
+    ward = Column(Integer, nullable=False)
     state = Column(String, nullable=False)
     lga = Column(String, nullable=False)
     email = Column(String, nullable=False)
@@ -54,7 +54,10 @@ class Party(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False, unique=True)
     party_logo_url = Column(String, nullable=False)
+    ideology = Column(String, nullable=False)
     fullname = Column(String)
+    party_chairman = Column(String, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("NOW()"))
 
 
 class Vote(Base):

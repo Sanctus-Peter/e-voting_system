@@ -1,8 +1,7 @@
-from fastapi import APIRouter
 from fastapi import APIRouter, status, Depends, HTTPException
 from ..database import get_db
 from sqlalchemy.orm import Session
-from .. import models, schemas, utils, oauth
+from .. import models, schemas, oauth
 from datetime import datetime
 from typing import List
 
@@ -56,13 +55,13 @@ def vote(body: schemas.VoteCreate, db: Session = Depends(get_db),
         )
 
     # cast vote
-    vote = models.Vote(voterId=user.id, electionId=election.id,
-                       candidateId=body.candidateId)
-    db.add(vote)
+    vote_cast = models.Vote(voterId=user.id, electionId=election.id,
+                            candidateId=body.candidateId)
+    db.add(vote_cast)
     db.commit()
-    db.refresh(vote)
+    db.refresh(vote_cast)
 
-    return vote
+    return vote_cast
 
 
 @votes_router.get("/{electionId}", response_model=List[schemas.Vote])

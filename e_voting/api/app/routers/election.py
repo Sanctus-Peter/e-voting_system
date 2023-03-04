@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """This file defines the endpoints related to election"""
-
 from fastapi import APIRouter, status, Depends, HTTPException
 from ..database import get_db
 from sqlalchemy.orm import Session
@@ -82,6 +81,7 @@ def delete_election(electionId: str, db: Session = Depends(get_db),
         Restricted to admin
     """
     db.query(models.Election).where(models.Election.id == electionId).delete()
+    db.commit()
     return None
 
 
