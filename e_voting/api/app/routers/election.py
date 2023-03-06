@@ -89,9 +89,33 @@ def delete_election(electionId: str, db: Session = Depends(get_db),
 def get_election_statistics(electionId: int, db: Session = Depends(get_db)):
     """Return the statistics of an election
     Votes distribution, percentages etc
+    - mark as todo
     """
 
     return "Stats"
+
+
+@router.get("/{electionId}/participants")
+def get_election_participants(electionId: int, db: Session = Depends(get_db)):
+    """Retrive the ballot paper for an election"""
+
+    election: models.Election = db.query(models.Election).where(
+        models.Election.id == electionId).first()
+    if not election:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Election with id={electionId} not found!")
+
+    candidates: List[models.Candidates] = election.candidates
+    result = []
+    for candidate in candidates:
+        party: models.Party = candidate.party
+        result.insert(0, {
+            "party": party.name,
+            "logo": party.party_logo_url,
+            "candidate": candidate.name
+        })
+
+    return {"election": election.id, "participants": result}
 
 
 @router.get("/active/mine")
