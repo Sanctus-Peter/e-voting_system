@@ -110,9 +110,10 @@ def get_election_participants(electionId: int, db: Session = Depends(get_db)):
     for candidate in candidates:
         party: models.Party = candidate.party
         result.insert(0, {
-            "party": party.name,
-            "logo": party.party_logo_url,
-            "candidate": candidate.name
+            "party_name": party.name,
+            "party_logo": party.party_logo_url,
+            "candidate_name": candidate.name,
+            "candidate_id": candidate.id
         })
 
     return {"election": election.id, "participants": result}
