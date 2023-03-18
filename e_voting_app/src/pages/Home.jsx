@@ -1,8 +1,12 @@
 import styled from '@emotion/styled'
-import { Button, Container, Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import Header from '../components/Header'
+import HowItWorksCard from '../components/HowItWorksCard'
+import { MdOutlineVerifiedUser } from 'react-icons/md'
+import { BiSelectMultiple } from 'react-icons/bi'
+import { SlCalculator } from 'react-icons/sl'
 
 const CtaButton = styled(Button)`
   padding: 25px 45px;
@@ -36,6 +40,29 @@ function Home() {
       <HomeSection>
         <Typography variant='h4'>How It Works</Typography>
         <UnderLine />
+        <Box
+          display={'flex'}
+          flexWrap='wrap'
+          justifyContent={'space-around'}
+          gap={2}
+          mt={2}
+        >
+          <HowItWorksCard
+            title='Account Verification'
+            icon={<MdOutlineVerifiedUser color='#ff3d00' fontSize={'5em'} />}
+            info='Sign Up your Account with the necessary details and await verification from the admins'
+          />
+          <HowItWorksCard
+            title='Select Candidate'
+            icon={<BiSelectMultiple color='#ff3d00' fontSize={'5em'} />}
+            info='Choose Your Prefereed Candidtae in aany of your eligible election and vote for them'
+          />
+          <HowItWorksCard
+            icon={<SlCalculator color='#ff3d00' fontSize={'5em'} />}
+            title='Voting Results'
+            info={'View Live Update of result in all Elections '}
+          />
+        </Box>
       </HomeSection>
     </div>
   )
