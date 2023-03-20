@@ -8,3 +8,11 @@ html {
   scroll-behavior: smooth;
 }
 
+form.loginform {
+  padding: 10px;
+  border-radius: 12px;
+  border: solid 1.5px var(--color-main);
+  min-width: calc(min(80vw, 350px));
+  min-height: 400px;
+}
+

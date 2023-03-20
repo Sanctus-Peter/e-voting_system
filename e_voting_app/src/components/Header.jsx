@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom'
 const pages = [
   { text: 'Home', url: '/' },
   { text: 'Signup', url: '/signup' },
-  { text: 'Signup', url: '/signup' },
+  { text: 'Signin', url: '/signin' },
   { text: 'Elections', url: '/elections' },
 ]
 const BrandName = styled(Typography)`

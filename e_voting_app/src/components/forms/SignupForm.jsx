@@ -5,7 +5,7 @@ import Control from '../controls'
 
 function SignupForm() {
   return (
-    <form>
+    <form className='loginform signup'>
       <Typography>Signup</Typography>
       <Box display={'flex'} flexDirection='column' gap={'1rem'}>
         <Control.Input />
