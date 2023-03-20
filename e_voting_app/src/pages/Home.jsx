@@ -2,18 +2,26 @@ import styled from '@emotion/styled'
 import { Button, Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
-import Header from '../components/Header'
 import HowItWorksCard from '../components/HowItWorksCard'
 import { MdOutlineVerifiedUser } from 'react-icons/md'
 import { BiSelectMultiple } from 'react-icons/bi'
 import { SlCalculator } from 'react-icons/sl'
+import HomeLayout from '../layout/HomeLayout'
 
-const CtaButton = styled(Button)`
-  padding: 25px 45px;
-  color: #ffffff;
-  background: #ff3d00;
-  border-radius: 60px;
-`
+const CtaButton = styled(Button)(({ theme }) => ({
+  padding: `16px 48px`,
+  color: '#ffffff',
+  background: '#ff3d00',
+  borderRadius: '60px',
+  '&:hover': {
+    transition: '0.3s',
+    color: '#ff3d00',
+    background: '#ffffff',
+    border: '1.5px solid #ff3d00',
+    transform: 'translateY(-3px)',
+    fontWeight: '600',
+  },
+}))
 
 const UnderLine = styled('span')`
   display: block;
@@ -25,9 +33,8 @@ const UnderLine = styled('span')`
 
 function Home() {
   return (
-    <div>
-      <Header />
-      <HomeSection>
+    <HomeLayout>
+      <HomeSection index={1}>
         <Typography variant='h1'>E-Voting</Typography>
         <Typography maxWidth={'700px'} textAlign='center'>
           Welcome to Vote, the most convenient and secure way to vote. Our
@@ -64,16 +71,23 @@ function Home() {
           />
         </Box>
       </HomeSection>
-    </div>
+    </HomeLayout>
   )
 }
 
-const HomeSection = ({ children }) => {
+const HomeSection = ({ children, index = 0 }) => {
+  const background = index ? 'rgb(196,164,132)' : 'rgb(251,251,253)'
+  const color = index ? '#ffffff' : '#000000'
   return (
     <Grid
       display={'grid'}
       p={3}
-      sx={{ minHeight: { xs: '55vh', md: '50vh' }, placeItems: 'center' }}
+      sx={{
+        minHeight: { xs: '55vh', md: '65vh' },
+        placeItems: 'center',
+        background,
+        color,
+      }}
     >
       <Box
         display={'flex'}

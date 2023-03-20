@@ -26,10 +26,10 @@ const BrandName = styled(Typography)`
   height: 44px;
   font-family: 'Irish Grover';
   font-style: normal;
-  font-weight: 600;
-  font-size: 36px;
+  font-weight: 700;
+  text-transform: small-caps;
+  font-size: 28px;
   line-height: 44px;
-  color: #ff3d00;
 `
 function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null)
@@ -44,7 +44,7 @@ function Header() {
 
   return (
     <AppBar
-      sx={{ background: 'orange' }}
+      sx={{ background: '#ff3d00' }}
       position='sticky'
       className='header'
       elevation={0.5}

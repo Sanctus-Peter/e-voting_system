@@ -1,7 +1,9 @@
 ::-webkit-scrollbar {
   display: none;
 }
-
+:root {
+  --color-main: #ff3d00;
+}
 html {
   scroll-behavior: smooth;
 }

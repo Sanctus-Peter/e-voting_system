@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 // import ProtectedRoute from './components/ProtectedRoute'
 import defaultTheme from './themes/default'
 import Home from './pages/Home'
+import Signup from './pages/Signup'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Router>
           <Routes>
             <Route index element={<Home />} />
+            <Route path='/signup' element={<Signup />} />
           </Routes>
         </Router>
         <CssBaseline />
