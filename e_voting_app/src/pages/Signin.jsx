@@ -7,7 +7,9 @@ function Signin() {
   return (
     <HomeLayout>
       <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
-        <Box sx={{ flex: 1 }}>Left side</Box>
+        <Box sx={{ flex: 1, display: { xs: 'none', md: 'flex' } }}>
+          Left side
+        </Box>
         <Box
           sx={{
             flex: 1,
