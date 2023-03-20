@@ -12,7 +12,8 @@ form.loginform {
   padding: 10px;
   border-radius: 12px;
   border: solid 1.5px var(--color-main);
-  min-width: calc(min(80vw, 350px));
-  min-height: 400px;
+  min-width: calc(min(80vw, 400px));
+  height: fit-content;
+  padding-bottom: 2rem;
 }
 

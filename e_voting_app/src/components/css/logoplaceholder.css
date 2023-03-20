@@ -1,0 +1,21 @@
+.logoplaceholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  border: solid 4px var(--color-main);
+  border-radius: 50%;
+  font-weight: 700;
+  margin: auto;
+}
+
+.logoplaceholder.white {
+  color: var(--color-main);
+  background-color: #ffffff;
+}
+
+.logoplaceholder.dark {
+  background-color: var(--color-main);
+  color: #ffffff;
+  border-color: #ffffff;
+}

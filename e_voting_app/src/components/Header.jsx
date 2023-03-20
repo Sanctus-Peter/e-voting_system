@@ -15,6 +15,7 @@ import { ImMenu } from 'react-icons/im'
 // import darkLogo from '../assets/logo_dark.png'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
+import LogoPlaceHolder from './LogoPlaceHolder'
 
 const pages = [
   { text: 'Home', url: '/' },
@@ -28,6 +29,9 @@ const BrandName = styled(Typography)`
   font-style: normal;
   font-weight: 700;
   text-transform: small-caps;
+  display: flex;
+  gap: 10px;
+  align-items: center;
   font-size: 28px;
   line-height: 44px;
 `
@@ -47,7 +51,7 @@ function Header() {
       sx={{ background: '#ff3d00' }}
       position='sticky'
       className='header'
-      elevation={0.5}
+      elevation={0}
     >
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
@@ -55,7 +59,10 @@ function Header() {
             sx={{ gap: '15px', display: { xs: 'none', md: 'flex' } }}
             className='brand'
           >
-            <BrandName>E-VOTING MS</BrandName>
+            <BrandName>
+              {' '}
+              <LogoPlaceHolder white={false} size={5} /> E-VOTING MS
+            </BrandName>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -87,15 +94,22 @@ function Header() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              {pages.map((page, i) => (
+                <MenuItem key={i + 1} onClick={handleCloseNavMenu}>
                   <NavItem page={page} />
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <BrandName sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            E-VOTING MS
+          <BrandName
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'none' },
+              justifyContent: 'center',
+            }}
+          >
+            <LogoPlaceHolder white={false} size={5} />{' '}
+            <span style={{ flex: 1 }}>E-VOTING MS</span>
           </BrandName>
           <Box
             gap={1}

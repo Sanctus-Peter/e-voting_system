@@ -1,19 +1,6 @@
-import { makeStyles } from '@mui/styles'
+import { Typography } from '@mui/material'
 import React, { useState } from 'react'
-import Loading from './loading/Loading'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'relative',
-    '& .MuiFormControl-root': {
-      width: '85%',
-      margin: theme.spacing(1),
-    },
-    '& .MuiSvgIcon-root': {
-      marginRight: theme.spacing(1),
-    },
-  },
-}))
+import LogoPlaceHolder from '../components/LogoPlaceHolder'
 
 export function useForm(
   initialValues,
@@ -43,26 +30,37 @@ export function useForm(
 }
 
 export const Form = (props) => {
-  const classes = useStyles()
   const [submitting, setSubmitting] = useState(false)
-  const { children, ref, onSubmit, ...others } = props
+  const { children, ref, onSubmit, title, withLogo = false, ...others } = props
 
   const handleSubmit = (e) => {
+    if (submitting) return
     setSubmitting(true)
     onSubmit(e)
     setSubmitting(false)
   }
   return (
     <form
+      className='loginform'
       action=''
-      className={classes.root}
       autoComplete='off'
       onSubmit={handleSubmit}
       encType='multipart/form-data'
       {...others}
       ref={ref}
     >
-      {submitting && <Loading />}
+      {withLogo && <LogoPlaceHolder />}
+      <Typography
+        sx={{
+          my: 1,
+          textAlign: 'center',
+          fontWeight: '600',
+          fontSize: '22px',
+        }}
+        color='primary'
+      >
+        {title}
+      </Typography>
       {children}
     </form>
   )

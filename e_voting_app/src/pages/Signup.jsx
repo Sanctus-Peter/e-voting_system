@@ -7,8 +7,19 @@ function Signup() {
   return (
     <HomeLayout>
       <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
-        <Box sx={{ flex: 1 }}>Left side</Box>
-        <Box sx={{ flex: 1, p: 2, justifyContent: 'center', display: 'flex' }}>
+        <Box sx={{ flex: 1, display: { xs: 'none', md: 'flex' } }}>
+          Left side
+        </Box>
+        <Box
+          sx={{
+            flex: 1,
+            p: 2,
+            justifyContent: 'center',
+            display: 'flex',
+            height: '80vh',
+            overflowY: 'scroll',
+          }}
+        >
           <SignupForm />
         </Box>
       </Box>
