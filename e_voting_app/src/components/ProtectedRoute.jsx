@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-import { useStateValue } from '../StateProvider'
+import { useStateValue } from '../store/StateProvider'
 
 function ProtectedRoute({ children, restrictedTo = [], redirect = '/' }) {
   const [{ user }, dispatch] = useStateValue()

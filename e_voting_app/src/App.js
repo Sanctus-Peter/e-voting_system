@@ -6,6 +6,9 @@ import defaultTheme from './themes/default'
 import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
+import Dashboardlayout from './layout/Dashboardlayout'
+import ProtectedRoute from './components/ProtectedRoute'
+import UserHome from './pages/UserHome'
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
             <Route index element={<Home />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/signin' element={<Signin />} />
+            <Route path='/dashboard' element={<Dashboardlayout />}>
+              <Route index element={<UserHome />} />
+            </Route>
           </Routes>
         </Router>
         <CssBaseline />
