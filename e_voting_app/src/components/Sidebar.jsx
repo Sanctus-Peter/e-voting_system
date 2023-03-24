@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
-import { BiUser } from 'react-icons/bi'
+import { BiDice6, BiHistory, BiUser } from 'react-icons/bi'
 import { NavLink } from 'react-router-dom'
 import './css/Sidebar.css'
 
@@ -10,6 +10,16 @@ const userNavs = [
     text: 'Profile',
     url: '/dashboard',
     icon: <BiUser fontSize={'2em'} />,
+  },
+  {
+    text: 'Active Elections',
+    url: '/dashboard/elections/active',
+    icon: <BiDice6 fontSize={'2em'} />,
+  },
+  {
+    text: 'Vote History',
+    url: '/dashboard/elections',
+    icon: <BiHistory fontSize={'2em'} />,
   },
 ]
 
@@ -20,6 +30,7 @@ function Sidebar() {
         color: '#ffffff',
         flex: 0.3,
         height: 'calc(100vh - 100px)',
+        display: { xs: 'none', md: 'flex' },
       }}
     >
       <SidebarContent />

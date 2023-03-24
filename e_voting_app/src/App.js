@@ -9,6 +9,7 @@ import Signin from './pages/Signin'
 import Dashboardlayout from './layout/Dashboardlayout'
 import ProtectedRoute from './components/ProtectedRoute'
 import UserHome from './pages/UserHome'
+import NotImplemented from './pages/NotImplemented'
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
             <Route path='/signin' element={<Signin />} />
             <Route path='/dashboard' element={<Dashboardlayout />}>
               <Route index element={<UserHome />} />
+
+              <Route path='*' element={<NotImplemented />} />
             </Route>
           </Routes>
         </Router>

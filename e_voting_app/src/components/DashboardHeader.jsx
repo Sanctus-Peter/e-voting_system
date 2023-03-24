@@ -23,6 +23,7 @@ const BrandName = styled(Typography)`
   font-weight: 700;
   text-transform: small-caps;
   display: flex;
+  justify-content: flex-start;
   gap: 10px;
   align-items: center;
   font-size: 28px;
@@ -48,7 +49,7 @@ function DashboardHeader() {
     >
       <Container maxWidth='xl'>
         <Toolbar disableGutters display='flex' justifyContent='space-between'>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size='large'
               aria-label='account of current user'
@@ -60,7 +61,10 @@ function DashboardHeader() {
               <ImMenu />
             </IconButton>
           </Box>
-          <Box sx={{ gap: '15px' }} className='brand'>
+          <Box
+            sx={{ gap: '15px', mx: { xs: 'auto', md: '0' } }}
+            className='brand'
+          >
             <BrandName>
               {' '}
               <LogoPlaceHolder white={false} size={5} /> E-VOTING MS
