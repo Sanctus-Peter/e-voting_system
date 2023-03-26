@@ -31,7 +31,8 @@ function Dashboardlayout({ children }) {
         <Box
           sx={{
             flex: 1,
-            minHeight: 'calc(100vh - 100px)',
+            height: 'calc(100vh - 100px)',
+            overflowY: 'scroll',
           }}
         >
           <Outlet />

@@ -1,7 +1,7 @@
 import React from 'react'
 import './css/logoplaceholder.css'
 
-function LogoPlaceHolder({ white = true, size = 7 }) {
+function LogoPlaceHolder({ character = 'E', white = true, size = 7 }) {
   size *= 10
   return (
     <span
@@ -11,7 +11,7 @@ function LogoPlaceHolder({ white = true, size = 7 }) {
       }}
       className={`logoplaceholder ${white ? 'white' : 'dark'}`}
     >
-      E
+      {character}
     </span>
   )
 }

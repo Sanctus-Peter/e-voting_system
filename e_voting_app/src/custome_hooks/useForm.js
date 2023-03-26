@@ -31,7 +31,15 @@ export function useForm(
 
 export const Form = (props) => {
   const [submitting, setSubmitting] = useState(false)
-  const { children, ref, onSubmit, title, withLogo = false, ...others } = props
+  const {
+    children,
+    ref,
+    onSubmit,
+    title,
+    marginBottom = '0x',
+    withLogo = false,
+    ...others
+  } = props
 
   const handleSubmit = (e) => {
     if (submitting) return
@@ -48,6 +56,7 @@ export const Form = (props) => {
       encType='multipart/form-data'
       {...others}
       ref={ref}
+      style={{ marginBottom }}
     >
       {withLogo && <LogoPlaceHolder />}
       <Typography

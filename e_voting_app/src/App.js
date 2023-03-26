@@ -8,8 +8,9 @@ import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Dashboardlayout from './layout/Dashboardlayout'
 import ProtectedRoute from './components/ProtectedRoute'
-import UserHome from './pages/UserHome'
+import UserHome from './pages/dashboard/user/UserHome'
 import NotImplemented from './pages/NotImplemented'
+import ActiveElections from './pages/dashboard/user/ActiveElections'
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
             <Route path='/signin' element={<Signin />} />
             <Route path='/dashboard' element={<Dashboardlayout />}>
               <Route index element={<UserHome />} />
-
+              <Route path='me' element={<UserHome />} />
+              <Route path='active-elections' element={<ActiveElections />} />
               <Route path='*' element={<NotImplemented />} />
             </Route>
           </Routes>
