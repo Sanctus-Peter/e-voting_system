@@ -29,7 +29,5 @@ app.include_router(election.router)
 
 
 app.get("/")
-
-
 async def root():
     return {"message": "Welcome to our e_voting system"}
